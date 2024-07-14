@@ -1,0 +1,4 @@
+error: duplicate key value violates unique constraint "swap_events_missed_hst2"
+error: duplicate key value violates unique constraint "swap_events_missed_hst2"
+error: duplicate key value violates unique constraint "swap_events_missed_hst2"
+error: numeric field overflow
