@@ -160,15 +160,15 @@ async function db_save_batch(events: any[], client: Client,block_creation_time:s
           fromAddress,
           token0_id.toLowerCase(),
           token0_symbol,
-          safeNumber(token0_amount ?? 0).toString(),
-          safeNumber(token0_value_in_usd ?? 0).toString(),
-          safeNumber(token0_total_exchanged_usd ?? 0).toString(),
+          safeNumber(token0_amount ?? new Decimal(0)).toString(),
+          safeNumber(token0_value_in_usd ?? new Decimal(0)).toString(),
+          safeNumber(token0_total_exchanged_usd ?? new Decimal(0)).toString(),
           token1_id.toLowerCase(),
           token1_symbol,
-          safeNumber(token1_amount ?? 0).toString(),
-          safeNumber(token1_value_in_usd ?? 0).toString(),
-          safeNumber(token1_total_exchanged_usd ?? 0).toString(),
-          safeNumber(ETH2USD ?? 0).toString(),
+          safeNumber(token1_amount ?? new Decimal(0)).toString(),
+          safeNumber(token1_value_in_usd ?? new Decimal(0)).toString(),
+          safeNumber(token1_total_exchanged_usd ?? new Decimal(0)).toString(),
+          safeNumber(ETH2USD ?? new Decimal(0)).toString(),
           block_creation_time
         );
       });
