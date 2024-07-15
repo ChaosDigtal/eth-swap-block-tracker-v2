@@ -328,8 +328,8 @@ export async function getPairTokenSymbols(web3: Web3, pairAddress: string) {
     }
   ];
   // Create a new contract instance with the pair address and ABI
-  const pairContract = new web3.eth.Contract(pairABI, pairAddress);
   try {
+    const pairContract = new web3.eth.Contract(pairABI, pairAddress);
     const token0 = await pairContract.methods.token0().call();
     const token1 = await pairContract.methods.token1().call();
     return { token0, token1 };
