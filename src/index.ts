@@ -6,6 +6,7 @@ import { Web3 } from 'web3'
 import { Network, Alchemy } from "alchemy-sdk";
 import Decimal from 'decimal.js'
 import fs from 'fs';
+import './logger';
 import csv from 'csv-parser';
 import {
   addAlchemyContextToRequest,
@@ -261,7 +262,11 @@ const main = async () => {
           try {
             response = await alchemy.core.getTokenMetadata(symbols.token0);
           } catch {
-            response = await alchemy.core.getTokenMetadata(symbols.token0);
+            try {
+              response = await alchemy.core.getTokenMetadata(symbols.token0);
+            } catch (e) {
+              console.error(e);
+            }
           }
           var token: Token = {
             id: symbols?.token0,
@@ -279,7 +284,11 @@ const main = async () => {
           try {
             response = await alchemy.core.getTokenMetadata(symbols.token1);
           } catch {
-            response = await alchemy.core.getTokenMetadata(symbols.token1);
+            try {
+              response = await alchemy.core.getTokenMetadata(symbols.token1);
+            } catch (e) {
+              console.error(e);
+            }
           }
           var token: Token = {
             id: symbols?.token1,

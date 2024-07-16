@@ -7,6 +7,7 @@ import { Web3 } from 'web3'
 import Decimal from 'decimal.js'
 import { Client } from 'pg';
 import * as fs from 'fs';
+import './logger';
 
 export interface AlchemyRequest extends Request {
   alchemy: {
@@ -69,14 +70,18 @@ var tokenIDMap = new Map<string, string>();
 export const getTokenIDMap = async (token_address: string) => {
   if (tokenIDMap.has(token_address))
     return tokenIDMap.get(token_address);
-  const response = JSON.stringify((await axios.get('https://s3.coinmarketcap.com/generated/core/crypto/cryptos.json')).data).toLowerCase();
-  var pattern = new RegExp(`\\[([^\\[]*?),([^\\[]*?)\\[([^\\[]*?)${token_address.toLowerCase()}`);
-  var ID = response.match(pattern);
-  if (ID == null) {
+  try {
+    const response = JSON.stringify((await axios.get('https://s3.coinmarketcap.com/generated/core/crypto/cryptos.json')).data).toLowerCase();
+    var pattern = new RegExp(`\\[([^\\[]*?),([^\\[]*?)\\[([^\\[]*?)${token_address.toLowerCase()}`);
+    var ID = response.match(pattern);
+    if (ID == null) {
+      return null;
+    }
+    tokenIDMap.set(token_address, ID[1]);
+    return ID[1];
+  } catch {
     return null;
   }
-  tokenIDMap.set(token_address, ID[1]);
-  return ID[1];
 }
 
 export const getEthereumTokenUSD = async (token_address: string, block_timestamp: string) => {

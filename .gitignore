@@ -6,3 +6,4 @@ node_modules
 .env
 a.json
 .~lock.settings.csv#
+eth-swap.log
